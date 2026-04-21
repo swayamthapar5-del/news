@@ -66,11 +66,14 @@ const NewsBanner: React.FC<NewsBannerProps> = ({ articles }) => {
 
   const currentArticle = displayArticles[currentIndex];
 
+  console.log('NewsBanner rendering with article:', currentArticle.title);
+
   return (
-    <div 
+    <div
       className="relative w-full bg-gradient-to-r from-primary-600 to-primary-800 text-white overflow-hidden"
       onMouseEnter={() => setAutoPlay(false)}
       onMouseLeave={() => setAutoPlay(true)}
+      style={{ minHeight: '200px', backgroundColor: '#1e3a8a' }}
     >
       {/* Banner Content */}
       <div className="container mx-auto px-4 py-4 sm:py-6">
