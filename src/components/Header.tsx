@@ -30,6 +30,9 @@ const Header: React.FC = () => {
           <Link to="/" className="text-primary dark:text-background font-bold font-headline tracking-tight">
             Feed
           </Link>
+          <Link to="/archive" className="text-outline dark:text-primary-fixed-dim font-headline tracking-tight hover:text-primary dark:hover:text-background transition-colors">
+            Archive
+          </Link>
           <Link to="/categories" className="text-outline dark:text-primary-fixed-dim font-headline tracking-tight hover:text-primary dark:hover:text-background transition-colors">
             Categories
           </Link>

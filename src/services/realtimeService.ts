@@ -1,5 +1,6 @@
 import { Article } from '../types'
 import { getTopHeadlines, getBreakingNews, getTwitterTweets } from './newsService'
+import { DailyNewsService } from './dailyNewsService'
 import { debugLog } from '../utils/logger'
 
 // Real-time news service for live updates
@@ -94,6 +95,9 @@ export class RealtimeService {
         if (articlesChanged) {
           this.cachedArticles = newArticles
           this.lastUpdate = Date.now()
+          
+          // Save daily news to archive
+          DailyNewsService.saveDailyNews(this.cachedArticles)
           
           // Notify all subscribers
           this.subscribers.forEach(callback => {

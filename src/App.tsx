@@ -6,6 +6,7 @@ import SearchPage from './components/SearchPage'
 import SavedArticlesPage from './components/SavedArticlesPage'
 import BiasMapPage from './components/BiasMapPage'
 import CategoriesPage from './components/CategoriesPage'
+import NewsArchivePage from './components/NewsArchivePage'
 import NotFound from './components/NotFound'
 import ErrorBoundary from './components/ErrorBoundary'
 
@@ -21,6 +22,7 @@ function App() {
               <Route path="/article/:id" element={<ArticleDetail />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/saved" element={<SavedArticlesPage />} />
+              <Route path="/archive" element={<NewsArchivePage />} />
               <Route path="/bias-map" element={<BiasMapPage />} />
               <Route path="/categories" element={<CategoriesPage />} />
               <Route path="*" element={<NotFound />} />
