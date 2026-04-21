@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, AlertTriangle } from 'lucide-react';
 import { Article } from '../types';
+import { debugLog } from '../utils/logger';
 
 interface NewsBannerProps {
   articles: Article[];
@@ -10,6 +11,8 @@ const NewsBanner: React.FC<NewsBannerProps> = ({ articles }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
 
+  debugLog('NewsBanner received articles:', articles.length);
+
   // Filter for breaking news or important articles
   const bannerArticles = articles.filter(article => 
     article.category === 'breaking' || 
@@ -18,8 +21,18 @@ const NewsBanner: React.FC<NewsBannerProps> = ({ articles }) => {
     article.title.toLowerCase().includes('urgent')
   ).slice(0, 5);
 
+  debugLog('Banner articles found:', bannerArticles.length);
+
   // Fallback to top articles if no breaking news
   const displayArticles = bannerArticles.length > 0 ? bannerArticles : articles.slice(0, 5);
+
+  debugLog('Display articles:', displayArticles.length);
+
+  // Always show banner if we have any articles
+  if (displayArticles.length === 0) {
+    debugLog('No articles to display in banner');
+    return null;
+  }
 
   useEffect(() => {
     if (!autoPlay || displayArticles.length === 0) return;
