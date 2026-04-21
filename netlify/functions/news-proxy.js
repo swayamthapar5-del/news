@@ -26,7 +26,16 @@ exports.handler = async (event, context) => {
       params.country = country;
     }
 
-    const response = await axios.get(`https://newsapi.org/v2${endpoint}`, { params });
+    const response = await axios.get(`https://newsapi.org/v2${endpoint}`, { 
+      params,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Origin': 'http://localhost:5173',
+        'Referer': 'http://localhost:5173',
+        'Accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.9'
+      }
+    });
 
     return {
       statusCode: 200,
