@@ -11,6 +11,7 @@ const NewsBanner: React.FC<NewsBannerProps> = ({ articles }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
 
+  console.log('NewsBanner received articles:', articles.length);
   debugLog('NewsBanner received articles:', articles.length);
 
   // Filter for breaking news or important articles
@@ -22,15 +23,18 @@ const NewsBanner: React.FC<NewsBannerProps> = ({ articles }) => {
   ).slice(0, 5);
 
   debugLog('Banner articles found:', bannerArticles.length);
+  console.log('Banner articles found:', bannerArticles.length);
 
   // Fallback to top articles if no breaking news
   const displayArticles = bannerArticles.length > 0 ? bannerArticles : articles.slice(0, 5);
 
   debugLog('Display articles:', displayArticles.length);
+  console.log('Display articles:', displayArticles.length);
 
   // Always show banner if we have any articles
   if (displayArticles.length === 0) {
     debugLog('No articles to display in banner');
+    console.log('No articles to display in banner');
     return null;
   }
 
