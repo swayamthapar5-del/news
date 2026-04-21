@@ -26,6 +26,7 @@ import {
 } from "../utils/newsTrust";
 import { NewsVerificationService, VerificationResult } from "../services/verificationService";
 import { AIService } from "../services/aiService";
+import NewsBanner from "./NewsBanner";
 
 class NewsFeedErrorBoundary extends Component<
   { children: React.ReactNode },
@@ -249,6 +250,7 @@ const NewsFeed: React.FC = () => {
 
   return (
     <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <NewsBanner articles={articles} />
       <section className="mb-6 sm:mb-10">
         <div>
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-primary tracking-tight mb-2 font-headline">Latest News</h1>
