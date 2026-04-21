@@ -14,19 +14,8 @@ const NewsBanner: React.FC<NewsBannerProps> = ({ articles }) => {
   console.log('NewsBanner received articles:', articles.length);
   debugLog('NewsBanner received articles:', articles.length);
 
-  // Filter for breaking news or important articles
-  const bannerArticles = articles.filter(article => 
-    article.category === 'breaking' || 
-    article.relevanceScore && article.relevanceScore > 0.8 ||
-    article.title.toLowerCase().includes('breaking') ||
-    article.title.toLowerCase().includes('urgent')
-  ).slice(0, 5);
-
-  debugLog('Banner articles found:', bannerArticles.length);
-  console.log('Banner articles found:', bannerArticles.length);
-
-  // Fallback to top articles if no breaking news
-  const displayArticles = bannerArticles.length > 0 ? bannerArticles : articles.slice(0, 5);
+  // Always show first 5 articles regardless of category
+  const displayArticles = articles.slice(0, 5);
 
   debugLog('Display articles:', displayArticles.length);
   console.log('Display articles:', displayArticles.length);
