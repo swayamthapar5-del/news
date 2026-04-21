@@ -81,6 +81,9 @@ const HAS_USABLE_API_KEY = isUsableKey(API_KEY)
 
 // Debug: Log which API is being used
 debugLog('Using API:', HAS_USABLE_API_KEY ? isUsableKey(NEWS_API_KEY) ? 'NewsAPI.org' : isUsableKey(NEWS_IO_API_KEY) ? 'News.io' : 'Other' : 'No API Key')
+console.log('Using API:', HAS_USABLE_API_KEY ? isUsableKey(NEWS_API_KEY) ? 'NewsAPI.org' : isUsableKey(NEWS_IO_API_KEY) ? 'News.io' : 'Other' : 'No API Key')
+console.log('NEWS_API_KEY present:', !!NEWS_API_KEY)
+console.log('HAS_USABLE_API_KEY:', HAS_USABLE_API_KEY)
 debugLog('Base URL:', BASE_URL)
 
 // Fallback mock data for development when API key is not set
