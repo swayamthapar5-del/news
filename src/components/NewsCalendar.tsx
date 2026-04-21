@@ -63,8 +63,8 @@ const NewsCalendar: React.FC<NewsCalendarProps> = ({ onDateSelect, selectedDate 
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <button
           onClick={previousMonth}
           className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -86,15 +86,15 @@ const NewsCalendar: React.FC<NewsCalendarProps> = ({ onDateSelect, selectedDate 
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-2 mb-4">
+      <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-3 sm:mb-4">
         {dayNames.map(day => (
-          <div key={day} className="text-center text-sm font-medium text-gray-500">
+          <div key={day} className="text-center text-xs sm:text-sm font-medium text-gray-500">
             {day}
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7 gap-1 sm:gap-2">
         {Array.from({ length: firstDay }).map((_, index) => (
           <div key={`empty-${index}`} />
         ))}
@@ -113,7 +113,7 @@ const NewsCalendar: React.FC<NewsCalendarProps> = ({ onDateSelect, selectedDate 
               onClick={() => handleDateClick(date)}
               disabled={!hasNews}
               className={`
-                relative p-3 rounded-lg text-sm font-medium transition-all
+                relative p-2 sm:p-3 rounded-lg text-xs sm:text-sm font-medium transition-all
                 ${hasNews 
                   ? 'cursor-pointer hover:bg-primary-50' 
                   : 'text-gray-300 cursor-not-allowed'

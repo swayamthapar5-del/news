@@ -56,31 +56,31 @@ const NewsBanner: React.FC<NewsBannerProps> = ({ articles }) => {
       onMouseLeave={() => setAutoPlay(true)}
     >
       {/* Banner Content */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-4 sm:py-6">
         <div className="flex items-center gap-2 mb-2">
-          <AlertTriangle className="w-5 h-5 text-yellow-300 animate-pulse" />
-          <span className="text-sm font-semibold text-yellow-300 uppercase tracking-wider">
+          <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300 animate-pulse" />
+          <span className="text-xs sm:text-sm font-semibold text-yellow-300 uppercase tracking-wider">
             Breaking News
           </span>
         </div>
         
-        <div className="flex items-start gap-4">
-          <div className="flex-1">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2 line-clamp-2">
+        <div className="flex items-start gap-3 sm:gap-4">
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg sm:text-2xl md:text-3xl font-bold mb-2 line-clamp-2">
               {currentArticle.title}
             </h2>
-            <p className="text-sm text-gray-200 line-clamp-2 mb-2">
+            <p className="text-xs sm:text-sm text-gray-200 line-clamp-2 mb-2">
               {currentArticle.description}
             </p>
-            <div className="flex items-center gap-4 text-xs text-gray-300">
-              <span className="font-medium">{currentArticle.source.name}</span>
-              <span>•</span>
-              <span>{new Date(currentArticle.publishedAt).toLocaleDateString()}</span>
+            <div className="flex items-center gap-2 sm:gap-4 text-xs text-gray-300">
+              <span className="font-medium truncate">{currentArticle.source.name}</span>
+              <span className="hidden sm:inline">•</span>
+              <span className="hidden sm:inline">{new Date(currentArticle.publishedAt).toLocaleDateString()}</span>
             </div>
           </div>
           
           {currentArticle.imageUrl && (
-            <div className="hidden md:block w-48 h-32 flex-shrink-0">
+            <div className="hidden sm:block w-32 h-24 md:w-48 md:h-32 flex-shrink-0">
               <img
                 src={currentArticle.imageUrl}
                 alt={currentArticle.title}

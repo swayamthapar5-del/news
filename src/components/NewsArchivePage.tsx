@@ -44,9 +44,9 @@ const NewsArchivePage: React.FC = () => {
   const stats = DailyNewsService.getArchiveStats();
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-6 py-8">
+    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-4"
@@ -54,13 +54,13 @@ const NewsArchivePage: React.FC = () => {
           <ArrowLeft className="w-4 h-4" />
           Back to News
         </Link>
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">News Archive</h1>
-        <p className="text-gray-600">
+        <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-2">News Archive</h1>
+        <p className="text-sm sm:text-base text-gray-600">
           Browse news by date - {stats.totalDays} days archived, {stats.totalArticles} articles
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-4 sm:gap-8">
         {/* Calendar */}
         <div className="lg:col-span-1">
           <NewsCalendar
@@ -88,13 +88,13 @@ const NewsArchivePage: React.FC = () => {
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
                 </div>
               ) : articles.length > 0 ? (
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {articles.map((article) => (
                     <div
                       key={article.id}
-                      className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6"
+                      className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 sm:p-6"
                     >
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-2">
+                      <h3 className="text-base sm:text-xl font-semibold text-gray-900 mb-2 line-clamp-2">
                         <a
                           href={article.url}
                           target="_blank"
@@ -104,13 +104,13 @@ const NewsArchivePage: React.FC = () => {
                           {article.title}
                         </a>
                       </h3>
-                      <p className="text-gray-600 mb-4 line-clamp-2">
+                      <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 line-clamp-2">
                         {article.description}
                       </p>
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-4 text-gray-500">
-                          <span className="font-medium">{article.source.name}</span>
-                          <div className="flex items-center gap-1">
+                      <div className="flex items-center justify-between text-xs sm:text-sm">
+                        <div className="flex items-center gap-2 sm:gap-4 text-gray-500">
+                          <span className="font-medium truncate">{article.source.name}</span>
+                          <div className="flex items-center gap-1 hidden sm:flex">
                             <Clock className="w-4 h-4" />
                             <span>{new Date(article.publishedAt).toLocaleTimeString()}</span>
                           </div>

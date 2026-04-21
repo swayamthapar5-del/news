@@ -57,39 +57,46 @@ const Header: React.FC = () => {
 
       {/* Mobile menu dropdown */}
       {mobileMenuOpen && (
-        <nav className="md:hidden border-t border-outline-variant/20 bg-[#f7f9fb] dark:bg-[#182034] px-6 pb-4 space-y-1">
+        <nav className="md:hidden border-t border-outline-variant/20 bg-[#f7f9fb] dark:bg-[#182034] px-4 pb-4 space-y-2">
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-3 text-primary dark:text-background font-bold font-headline tracking-tight"
+            className="block py-3 px-4 text-base font-bold text-primary dark:text-background hover:bg-[#e6e8ea] dark:hover:bg-[#2e354a] rounded-lg transition-colors"
           >
             Feed
           </Link>
           <Link
+            to="/archive"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-3 px-4 text-base text-outline dark:text-primary-fixed-dim hover:bg-[#e6e8ea] dark:hover:bg-[#2e354a] rounded-lg transition-colors"
+          >
+            Archive
+          </Link>
+          <Link
             to="/categories"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-3 text-outline dark:text-primary-fixed-dim font-headline tracking-tight"
+            className="block py-3 px-4 text-base text-outline dark:text-primary-fixed-dim hover:bg-[#e6e8ea] dark:hover:bg-[#2e354a] rounded-lg transition-colors"
           >
             Categories
           </Link>
           <Link
             to="/bias-map"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-3 text-outline dark:text-primary-fixed-dim font-headline tracking-tight"
+            className="block py-3 px-4 text-base text-outline dark:text-primary-fixed-dim hover:bg-[#e6e8ea] dark:hover:bg-[#2e354a] rounded-lg transition-colors"
           >
             Bias Map
           </Link>
           <Link
             to="/saved"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-3 text-outline dark:text-primary-fixed-dim font-headline tracking-tight"
+            className="block py-3 px-4 text-base text-outline dark:text-primary-fixed-dim hover:bg-[#e6e8ea] dark:hover:bg-[#2e354a] rounded-lg transition-colors"
           >
             Saved
           </Link>
           <Link
             to="/search"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-3 text-outline dark:text-primary-fixed-dim font-headline tracking-tight"
+            className="block py-3 px-4 text-base text-outline dark:text-primary-fixed-dim hover:bg-[#e6e8ea] dark:hover:bg-[#2e354a] rounded-lg transition-colors"
           >
             Search
           </Link>

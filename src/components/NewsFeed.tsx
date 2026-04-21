@@ -249,12 +249,12 @@ const NewsFeed: React.FC = () => {
   }
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-6 py-8">
+    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
       <NewsBanner articles={articles} />
-      <section className="mb-10">
+      <section className="mb-6 sm:mb-10">
         <div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-primary tracking-tight mb-2 font-headline">Latest News</h1>
-          <p className="text-secondary text-lg font-medium leading-relaxed max-w-xl font-body">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-primary tracking-tight mb-2 font-headline">Latest News</h1>
+          <p className="text-secondary text-sm sm:text-base md:text-lg font-medium leading-relaxed max-w-xl font-body">
             Curated high-level and informative news, tailored for the discerning reader.
           </p>
         </div>
