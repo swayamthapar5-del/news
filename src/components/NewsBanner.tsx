@@ -59,10 +59,10 @@ const NewsBanner: React.FC<NewsBannerProps> = ({ articles }) => {
 
   return (
     <div
-      className="relative w-full bg-gradient-to-r from-primary-600 to-primary-800 text-white overflow-hidden"
+      className="relative w-full text-white overflow-hidden"
       onMouseEnter={() => setAutoPlay(false)}
       onMouseLeave={() => setAutoPlay(true)}
-      style={{ minHeight: '200px', backgroundColor: '#1e3a8a' }}
+      style={{ minHeight: '200px', backgroundColor: '#182034', padding: '20px' }}
     >
       {/* Banner Content */}
       <div className="container mx-auto px-4 py-4 sm:py-6">
