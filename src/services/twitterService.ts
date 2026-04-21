@@ -113,9 +113,9 @@ export class TwitterService {
           const userId = response.data.data?.id;
           if (!userId) continue;
 
-          // Fetch user timeline
+          // Fetch user timeline with media
           const tweetsResponse = await axios.get(
-            `${TWITTER_API_BASE_URL}/users/${userId}/tweets?max_results=${count}&tweet.fields=created_at,public_metrics,entities,author_id&expansions=author_id&user.fields=name,username,verified,profile_image_url`,
+            `${TWITTER_API_BASE_URL}/users/${userId}/tweets?max_results=${count}&tweet.fields=created_at,public_metrics,entities,author_id,attachments&expansions=author_id,attachments.media&media.fields=url,type,preview_image_url&user.fields=name,username,verified,profile_image_url`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -125,12 +125,18 @@ export class TwitterService {
 
           const tweets = tweetsResponse.data.data || [];
           const users = tweetsResponse.data.includes?.users || [];
+          const media = tweetsResponse.data.includes?.media || [];
 
           for (const tweet of tweets) {
             const author = users.find((u: any) => u.id === tweet.author_id);
             if (!author) continue;
 
-            articles.push(this.convertTweetToArticle(tweet, author));
+            // Get media for this tweet
+            const tweetMedia = tweet.attachments?.media_keys?.map((key: string) => 
+              media.find((m: any) => m.media_key === key)
+            ).filter(Boolean) || [];
+
+            articles.push(this.convertTweetToArticle(tweet, author, tweetMedia));
           }
         } catch (error) {
           console.error(`Failed to fetch tweets from ${account}:`, error);
@@ -152,7 +158,7 @@ export class TwitterService {
       const token = await this.getBearerToken();
       
       const response = await axios.get(
-        `${TWITTER_API_BASE_URL}/search/recent?query=${encodeURIComponent(query)}&max_results=${count}&tweet.fields=created_at,public_metrics,entities,author_id&expansions=author_id&user.fields=name,username,verified,profile_image_url`,
+        `${TWITTER_API_BASE_URL}/search/recent?query=${encodeURIComponent(query)}&max_results=${count}&tweet.fields=created_at,public_metrics,entities,author_id,attachments&expansions=author_id,attachments.media&media.fields=url,type,preview_image_url&user.fields=name,username,verified,profile_image_url`,
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -162,13 +168,20 @@ export class TwitterService {
 
       const tweets = response.data.data || [];
       const users = response.data.includes?.users || [];
+      const media = response.data.includes?.media || [];
 
       return tweets.map((tweet: any) => {
         const author = users.find((u: any) => u.id === tweet.author_id);
-        return this.convertTweetToArticle(tweet, author);
+        
+        // Get media for this tweet
+        const tweetMedia = tweet.attachments?.media_keys?.map((key: string) => 
+          media.find((m: any) => m.media_key === key)
+        ).filter(Boolean) || [];
+
+        return this.convertTweetToArticle(tweet, author, tweetMedia);
       });
     } catch (error) {
-      console.error('Failed to search tweets:', error);
+      console.error('Failed to search Twitter:', error);
       return [];
     }
   }
@@ -176,12 +189,21 @@ export class TwitterService {
   /**
    * Convert Twitter tweet to Article format
    */
-  private convertTweetToArticle(tweet: any, author: any): Article {
+  private convertTweetToArticle(tweet: any, author: any, media?: any[]): Article {
     const text = tweet.text || '';
     const urls = tweet.entities?.urls || [];
     
     // Extract first URL if available
     const firstUrl = urls[0]?.expanded_url || `https://x.com/${author?.username}/status/${tweet.id}`;
+
+    // Extract first image from media attachments
+    let imageUrl = author?.profile_image_url || undefined;
+    if (media && media.length > 0) {
+      const firstImage = media.find((m: any) => m.type === 'photo' || m.type === 'image');
+      if (firstImage) {
+        imageUrl = firstImage.url || firstImage.preview_image_url || imageUrl;
+      }
+    }
 
     return {
       id: `twitter-${tweet.id}`,
@@ -189,7 +211,7 @@ export class TwitterService {
       description: text,
       content: text,
       url: firstUrl,
-      imageUrl: author?.profile_image_url || undefined,
+      imageUrl: imageUrl,
       publishedAt: tweet.created_at || new Date().toISOString(),
       source: {
         name: `Twitter/X - @${author?.username || 'unknown'}`,
