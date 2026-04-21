@@ -8,7 +8,8 @@ import { debugLog } from '../utils/logger'
 
 // NewsAPI.org Configuration
 const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY
-const NEWS_API_BASE_URL = import.meta.env.VITE_NEWS_API_BASE_URL || 'https://newsapi.org/v2'
+// Use Netlify proxy to avoid 426 error from NewsAPI.org
+const NEWS_API_BASE_URL = import.meta.env.VITE_NEWS_API_BASE_URL || '/.netlify/functions/news-proxy'
 
 // News.io API Configuration
 const NEWS_IO_API_KEY = import.meta.env.VITE_NEWS_IO_API_KEY
