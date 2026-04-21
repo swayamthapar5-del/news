@@ -17,7 +17,7 @@ const NEWS_IO_API_BASE_URL = import.meta.env.VITE_NEWS_IO_API_BASE_URL || 'https
 // Reddit API Configuration
 const REDDIT_API_BASE_URL = import.meta.env.VITE_REDDIT_API_BASE_URL || 'https://www.reddit.com'
 const HACKER_NEWS_API_BASE_URL = import.meta.env.VITE_HN_API_BASE_URL || 'https://hn.algolia.com/api/v1'
-const ARTICLE_PREVIEW_IMAGE_BASE_URL = import.meta.env.VITE_ARTICLE_PREVIEW_IMAGE_BASE_URL || 'https://image.thum.io/get/width/1200/noanimate'
+// Removed image.thum.io dependency - using only article images with SVG fallback
 
 // The News API - Free alternative to NewsAPI.org
 const THE_NEWS_API_KEY = import.meta.env.VITE_THE_NEWS_API_KEY
@@ -237,9 +237,9 @@ const decodeHtmlEntities = (value?: string): string | undefined => {
     .replace(/&#39;/g, "'")
 }
 
-const getPreviewImageUrl = (articleUrl?: string): string | undefined => {
-  if (!articleUrl || !/^https?:\/\//i.test(articleUrl)) return undefined
-  return `${ARTICLE_PREVIEW_IMAGE_BASE_URL}/${encodeURI(articleUrl)}`
+const getPreviewImageUrl = (): string | undefined => {
+  // Removed image.thum.io dependency - using only article images with SVG fallback
+  return undefined
 }
 
 const getRedditImageUrl = (data: any): string | undefined => {
@@ -331,7 +331,7 @@ const fetchRedditCategoryPosts = async (subreddit: string, category: string): Pr
           url: `https://reddit.com${data.permalink}`
         },
         url: articleUrl,
-        imageUrl: getRedditImageUrl(data) || getPreviewImageUrl(articleUrl),
+        imageUrl: getRedditImageUrl(data) || getPreviewImageUrl(),
         category,
         relevanceScore: calculateRedditRelevanceScore(data)
       } as Article
@@ -384,7 +384,7 @@ const fetchHackerNewsArticles = async (category?: string, query?: string): Promi
             url: 'https://news.ycombinator.com'
           },
           url: hit.url || `https://news.ycombinator.com/item?id=${hit.objectID}`,
-          imageUrl: getPreviewImageUrl(hit.url),
+          imageUrl: getPreviewImageUrl(),
           category: normalizedCategory === 'general' ? 'technology' : normalizedCategory,
           relevanceScore: Math.min(0.95, 0.45 + Math.min(points, 500) / 1000 + Math.min(comments, 200) / 1000)
         } as Article
@@ -448,7 +448,7 @@ const searchRedditPosts = async (query: string): Promise<Article[]> => {
           url: `https://reddit.com/r/${post.data.subreddit}`
         },
         url: articleUrl,
-        imageUrl: getRedditImageUrl(post.data) || getPreviewImageUrl(articleUrl),
+        imageUrl: getRedditImageUrl(post.data) || getPreviewImageUrl(),
         category: 'reddit',
         relevanceScore: calculateRedditRelevanceScore(post.data)
       }
@@ -505,7 +505,7 @@ export const getTopHeadlines = async (category?: string): Promise<Article[]> => 
           url: article.source.url || article.url
         },
         url: article.url,
-        imageUrl: normalizeImageUrl(article.urlToImage) || getPreviewImageUrl(article.url),
+        imageUrl: normalizeImageUrl(article.urlToImage) || getPreviewImageUrl(),
         category: category || 'general',
         relevanceScore: calculateRelevanceScore(article)
       }))
@@ -569,7 +569,7 @@ export const searchNews = async (query: string): Promise<Article[]> => {
         url: article.source.url || article.url
       },
       url: article.url,
-      imageUrl: normalizeImageUrl(article.urlToImage) || getPreviewImageUrl(article.url),
+      imageUrl: normalizeImageUrl(article.urlToImage) || getPreviewImageUrl(),
       category: 'general',
       relevanceScore: calculateRelevanceScore(article)
     }))
