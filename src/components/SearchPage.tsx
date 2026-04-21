@@ -52,49 +52,29 @@ const SearchPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-0 space-y-6">
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Search News</h1>
-        <p className="text-gray-600 text-sm sm:text-base">Find relevant and informative articles</p>
-      </div>
-
-      <form onSubmit={handleSubmit} className="w-full">
-        <div className="relative">
+    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Search News</h1>
+        <form onSubmit={handleSubmit} className="flex gap-2 sm:gap-4">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search for news topics, keywords, or categories..."
-            className="w-full px-4 py-3 pl-12 text-base sm:text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            placeholder="Search for news..."
+            className="flex-1 px-4 py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           />
-          <Search className="absolute left-4 top-3.5 text-gray-400" size={20} />
-        </div>
-      </form>
-
-      {query && (
-        <div className="text-gray-600">
-          {loading ? (
-            <p>Searching for "{query}"...</p>
-          ) : (
-            <p>Found {articles.length} results for "{query}"</p>
-          )}
-        </div>
-      )}
+          <button
+            type="submit"
+            className="px-4 sm:px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+        </form>
+      </div>
 
       {loading && (
-        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {[...Array(3)].map((_, i) => (
-            <div key={i} className="news-card animate-pulse">
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <div className="w-full sm:w-32 h-24 bg-gray-200 rounded-lg flex-shrink-0"></div>
-                <div className="flex-1 space-y-2">
-                  <div className="h-4 bg-gray-200 rounded"></div>
-                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                  <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="flex items-center justify-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
       )}
 

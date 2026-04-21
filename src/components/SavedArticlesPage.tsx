@@ -145,16 +145,16 @@ const SavedArticlesPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Saved Articles</h1>
-        <p className="text-gray-600">Your personal reading list with offline access</p>
+    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Saved Articles</h1>
+        <p className="text-sm sm:text-base text-gray-600">Your curated collection of news articles</p>
       </div>
 
       {/* Stats and Actions */}
-      <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+      <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 mb-4 sm:mb-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             <div className="text-sm">
               <span className="font-semibold text-gray-900">{stats.totalBookmarks}</span>
               <span className="text-gray-600 ml-1">bookmarked articles</span>
@@ -256,11 +256,11 @@ const SavedArticlesPage: React.FC = () => {
           )}
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {filteredBookmarks.map((article) => {
             const isOffline = getOfflineArticle(article.id) !== null
             return (
-              <div key={article.id} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+              <div key={article.id} className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 hover:shadow-md transition-shadow">
                 <div className="flex flex-col lg:flex-row gap-6">
                   <div className="lg:w-48">
                     <img
